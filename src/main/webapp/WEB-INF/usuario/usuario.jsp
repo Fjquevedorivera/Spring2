@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-center">
-				<input class="btn btn-danger m-2" type="button" value="Limpiar">
+				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
 				<input class="btn btn-primary m-2" type="submit" value="Insertar"> 
 			</div>
 		</form:form>
@@ -55,6 +55,44 @@
 			<input type="button" value="Limpiar">
 			<input type="submit" value="Insertar">
 		</form> -->
+		
+		<br>
+		<hr>
+		
+		<table class="table">
+			<thead>
+		    	<tr>
+		      	<th scope="col">#</th>
+		      	<th scope="col">Nombre</th>
+		      	<th scope="col">Apellido</th>
+		      	<th scope="col">Limite</th>
+		      	<th scope="col">Código Postal</th>
+		      	<th scope="col-2">Acciones</th>
+		    	</tr>
+		  	</thead>
+		  	<tbody>
+		  		<c:forEach items="${listaUsuarios}" var="usuario">
+		    		<tr>
+			      		<th scope="row">${usuario.getId()}</th>
+			      		<td>${usuario.getName()}</td>
+			      		<td>${usuario.getLast_name()}</td>
+			      		<td>${usuario.getLimite()}</td>
+			      		<td>${usuario.getCp()}</td>
+	      		  		<td class="d-flex justify-content-center">
+	      		  		<form method="get" action="/usuario/eliminar">
+	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
+							<input class="btn btn-danger btn-sm" type="submit" value="X">
+	      		  		</form>
+	      		  		<form method="get" action="/usuario/eliminar">
+	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
+							<input class="btn btn-primary btn-sm" type="submit" value="Editar">
+						</form>
+				  		</td>
+		    		</tr>
+		  		</c:forEach>
+		  	</tbody>
+		</table>
+		
 	</div>
 	
 </body>
