@@ -16,7 +16,10 @@ public class UsuarioService {
 	UsuarioRepository usuarioRepository;
 
 	public void insertarUsuario(@Valid Usuario usuario) {
-		// TODO Auto-generated method stub
+		usuarioRepository.save(usuario);
+	}
+	
+	public void actualizarUsuario(@Valid Usuario usuario) {
 		usuarioRepository.save(usuario);
 	}
 	

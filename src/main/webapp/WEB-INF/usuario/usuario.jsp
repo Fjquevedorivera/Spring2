@@ -79,11 +79,11 @@
 			      		<td>${usuario.getLimite()}</td>
 			      		<td>${usuario.getCp()}</td>
 	      		  		<td class="d-flex justify-content-center">
-	      		  		<form method="get" action="/usuario/eliminar">
+	      		  		<form method="post" action="/usuario/eliminar">
 	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
-							<input class="btn btn-danger btn-sm" type="submit" value="X">
+							<input class="btn btn-danger btn-sm" type="submit" value="Eliminar">
 	      		  		</form>
-	      		  		<form method="get" action="/usuario/eliminar">
+	      		  		<form method="post" action="/usuario/editar">
 	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
 							<input class="btn btn-primary btn-sm" type="submit" value="Editar">
 						</form>
