@@ -6,34 +6,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity // representación de la entidad
-@Table(name="proveedores")// nombre de la tabla en la BD
-public class Proveedor {
+@Entity //representación de la entidad
+@Table(name="usuarios") // nombre de la tabla en la BD
+public class Usuario {
 	
-	// Attributes
-	@Id // clave primaria o PK
+	@Id //clave primaria o PK
 	@GeneratedValue(strategy= GenerationType.IDENTITY) // auto incrementable	
 	private Long id;
 	
 	private String name;
 	private String last_name;
-	private String email;
-	private String age;
+	private String limite;
+	private String cp;
 	
-	// Constructors
-	public Proveedor() {
+	public Usuario() {
 		super();
 	}
-
-	public Proveedor(String name, String last_name, String email, String age) {
+	
+	public Usuario(String name, String last_name, String limite, String cp) {
 		super();
 		this.name = name;
 		this.last_name = last_name;
-		this.email = email;
-		this.age = age;
+		this.limite = limite;
+		this.cp = cp;
 	}
-	
-	// Getters and Setters
+
 	public String getName() {
 		return name;
 	}
@@ -50,26 +47,27 @@ public class Proveedor {
 		this.last_name = last_name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getLimite() {
+		return limite;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLimite(String limite) {
+		this.limite = limite;
 	}
 
-	public String getAge() {
-		return age;
+	public String getCp() {
+		return cp;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
+	public void setCp(String cp) {
+		this.cp = cp;
 	}
-	
-	// Method
+
 	@Override
 	public String toString() {
-		return "Proveedor [name=" + name + ", last_name=" + last_name + ", email=" + email + ", age=" + age + "]";
+		return "Usuario [name=" + name + ", last_name=" + last_name + ", limite=" + limite + ", cp=" + cp + "]";
 	}
-		
+	
+	
+	
 }

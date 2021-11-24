@@ -1,9 +1,20 @@
 package com.nttdata.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity //representación de la entidad
+@Table(name="clientes") // nombre de la tabla en la BD
 public class Cliente {
 	
 	//Attributes: access lvl, type, name;
 	//private Boolean plan = false;
+	@Id //clave primaria o PK
+	@GeneratedValue(strategy= GenerationType.IDENTITY) // auto incrementable	
+	private Long id;
 	private String rut;
 	private String name;
 	private Integer age;
@@ -17,21 +28,21 @@ public class Cliente {
 		super();
 	}
 	
-	public Cliente(String rut, String name, Integer age, String sex, Boolean plan, String cell_phone) {
+	public Cliente(String rut, String name, Integer age, String sex, Boolean plan, String phone) {
 		super();
 		this.rut = rut;
 		this.name = name;
 		this.age = age;
 		this.sex = sex;
 		this.plan = plan;
-		this.cell_phone = cell_phone;
+		this.phone = phone;
 	}
 	
 	//Methods
 	@Override
 	public String toString() {
 		return "Cliente [rut=" + rut + ", name=" + name + ", age=" + age + ", sex=" + sex + ", plan=" + plan
-				+ ", cell_phone=" + cell_phone + "]";
+				+ ", phone=" + phone + "]";
 	}
 	
 	//Getters and Setters 
@@ -66,11 +77,11 @@ public class Cliente {
 	public void setPlan(Boolean plan) {
 		this.plan = plan;
 	}
-	public String getCell_phone() {
-		return cell_phone;
+	public String getPhone() {
+		return phone;
 	}
-	public void setCell_phone(String cell_phone) {
-		this.cell_phone = cell_phone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 }
