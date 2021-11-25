@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nttdata.models.Celular;
 import com.nttdata.models.Usuario;
+import com.nttdata.services.CelularService;
 import com.nttdata.services.UsuarioService;
 
 @Controller
@@ -17,6 +18,9 @@ public class CelularController {
 	@Autowired // permite inyección de dependencias
 	UsuarioService usuarioService;
 	
+	@Autowired // permite inyección de dependencias
+	CelularService celularService;
+	
 	@RequestMapping("")
 	public String celular(Model model,
 			@ModelAttribute("celular") Celular celular) {
@@ -25,10 +29,9 @@ public class CelularController {
 	}
 	
 	@RequestMapping("/crear")
-	public String crear(Model model) {
-		model.addAttribute("celular", new Celular());
-		model.addAttribute("listaUsuarios", usuarioService.obtenerListaUsuarios());
-		return "celular/celular.jsp";
+	public String crear(@ModelAttribute("celular") Celular celular) {
+		celularService.insertarCelular(celular);
+		return "redirect:/celular.jsp";
 	}
 	
 	

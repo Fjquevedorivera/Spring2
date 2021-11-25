@@ -15,7 +15,7 @@ public class HomeController {
 	@Autowired // permite inyección de dependencias
 	UsuarioService usuarioService;
 	
-	@RequestMapping("/")
+	@RequestMapping("")
 	//http://localhost:8080/index
 	// Start Method
 	public String index() {

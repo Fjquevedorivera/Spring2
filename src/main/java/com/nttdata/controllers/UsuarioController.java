@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nttdata.models.Usuario;
+import com.nttdata.services.ProyectoService;
 import com.nttdata.services.UsuarioService;
 
 @Controller
@@ -22,6 +24,9 @@ public class UsuarioController {
 	@Autowired // permite inyección de dependencias
 	UsuarioService usuarioService;
 	
+	@Autowired // permite inyección de dependencias
+	ProyectoService proyectoService;
+	
 	// Desplegar vista usuario
 	@RequestMapping("")
 	public String usuario(@ModelAttribute("usuario") Usuario usuario,
@@ -29,7 +34,7 @@ public class UsuarioController {
 		//Usuario usuario1= new Usuario();
 		//List<Usuario> listaUsuarios = usuarioService.obtenerListaUsuarios();
 		//model.addAttribute("usuario", new Usuario());
-		
+		model.addAttribute("listaProyectos", proyectoService.obtenerListaProyectos());
 		model.addAttribute("listaUsuarios", usuarioService.obtenerListaUsuarios());
 		return "usuario/usuario.jsp";
 	}
@@ -62,44 +67,24 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping("/editar")
-	public String editar(@RequestParam("id") Long id, 
-			Model model, 
-			HttpSession session) {
+	public String editar(@RequestParam("id") Long id, Model model) {
 		
-		System.out.println("Id: "+ id);
 		Usuario usuario = usuarioService.buscarUsuarioId(id);
-		
 		if(usuario != null) {
-			session.setAttribute("usuarioEditar", usuario);
-			model.addAttribute("usuarioActualizar", usuario);
+			model.addAttribute("usuario", usuario);
+			model.addAttribute("listaProyectos", proyectoService.obtenerListaProyectos());
+			return "usuario/editar.jsp";
 		}
 
-		return "usuario/usuarioEditar.jsp";
+		return "redirect:/usuario";
+		
 	}
 	
-	@RequestMapping("/actualizar")
-	public String actualizar(@ModelAttribute("usuarioActualizar") Usuario usuario, 
-			Model model, 
-			HttpSession session) {
-		
-		Usuario usuarioAntiguo = (Usuario)session.getAttribute("usuarioEditar");
-		
-		if(usuarioAntiguo != null) {
-			String error = validaUsuario(usuario);
-			if(error.isEmpty()) {
-				usuarioAntiguo.setName(usuario.getName());
-				usuarioAntiguo.setLast_name(usuario.getLast_name());
-				usuarioAntiguo.setLimite(usuario.getLimite());
-				usuarioAntiguo.setCp(usuario.getCp());
-				
-				usuarioService.actualizarUsuario(usuarioAntiguo);
-				return "redirect:/usuario";
-			} else {
-				return "error.jsp";
-			}
-		}
-		
-		return "Usuario Incorrecto";
+	@RequestMapping(value="/actualizar", method = RequestMethod.PUT)
+	public String actualizar(@Valid @ModelAttribute("usuario") Usuario usuario, Model model) {
+		System.out.println("id " + usuario.getId());
+		usuarioService.actualizarUsuario(usuario);
+		return "redirect:/usuario";
 	}
 	
 	public String validaUsuario(Usuario usuario) {

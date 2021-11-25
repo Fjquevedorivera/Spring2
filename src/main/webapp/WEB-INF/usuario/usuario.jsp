@@ -33,6 +33,15 @@
 				<div class="col-10">
 					<form:input class="form-control" type="text" path="cp"/>
 				</div>
+				
+				<form:select class="form-select" path="proyecto" aria-label="Default select example">
+					<option selected disabled>Seleccione Proyecto</option>
+					<c:forEach items="${listaProyectos}" var="proyecto">
+						<form:option value="${proyecto.getId()}">
+							${proyecto.getName()}
+						</form:option>
+					</c:forEach>
+				</form:select>
 			</div>
 			<div class="d-flex justify-content-center">
 				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
@@ -64,6 +73,7 @@
 		      	<th scope="col">Apellido</th>
 		      	<th scope="col">Limite</th>
 		      	<th scope="col">Código Postal</th>
+		      	<th scope="col">Proyecto</th>
 		      	<th scope="col-2">Acciones</th>
 		    	</tr>
 		  	</thead>
@@ -75,6 +85,7 @@
 			      		<td>${usuario.getLast_name()}</td>
 			      		<td>${usuario.getLimite()}</td>
 			      		<td>${usuario.getCp()}</td>
+			      		<td>${usuario.getProyecto().getName()}</td>
 	      		  		<td class="d-flex justify-content-center">
 	      		  		<form method="post" action="/usuario/eliminar">
 	      		  			<input type="hidden" name="id" value="${usuario.getId()}">
