@@ -18,20 +18,17 @@
 				<div class="col-10">
 					<form:input class="form-control" type="text" path="name"/> 
 				</div>
-			</div>
-			<div class="row">
+
 				<form:label class="col-2 col-form-label" path="last_name">Apellido:</form:label>
 				<div class="col-10">
 					<form:input class="form-control" type="text" path="last_name"/> 
 				</div>
-			</div>
-			<div class="row">
+
 				<form:label class="col-2 col-form-label" path="limite">Limite:</form:label>
 				<div class="col-10">
 					<form:input class="form-control" type="text" path="limite"/> 
 				</div>
-			</div>
-			<div class="row">
+
 				<form:label class="col-2 col-form-label" path="cp">Codigo Postal:</form:label>
 				<div class="col-10">
 					<form:input class="form-control" type="text" path="cp"/>

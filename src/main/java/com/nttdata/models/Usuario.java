@@ -1,9 +1,12 @@
 package com.nttdata.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity //representación de la entidad
@@ -19,6 +22,18 @@ public class Usuario {
 	private String limite;
 	private String cp;
 	
+	// Relación 1a1
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Celular celular;
+	
+	public Celular getCelular() {
+		return celular;
+	}
+
+	public void setCelular(Celular celular) {
+		this.celular = celular;
+	}
+
 	public Usuario() {
 		super();
 	}
