@@ -1,9 +1,15 @@
 package com.nttdata.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity // representación de la entidad
@@ -19,6 +25,15 @@ public class Proveedor {
 	private String last_name;
 	private String email;
 	private String age;
+	
+	// Relación nan
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+		name = "clientes_proveedores", // Tabla intermedia
+		joinColumns = @JoinColumn(name="proveedor_id"), // Nombre posicionado
+		inverseJoinColumns = @JoinColumn(name="cliente_id") // Nombre refereciado
+	)
+	private List<Cliente> clientes;
 	
 	// Constructors
 	public Proveedor() {

@@ -11,8 +11,8 @@ public class ClienteController {
 	
 	@RequestMapping("")
 	public String cliente(Model model) {
-		model.addAttribute("name", "Francisco");
-		model.addAttribute("last", "Quevedo");
+		//model.addAttribute("name", "Francisco");
+		//model.addAttribute("last", "Quevedo");
 		return "cliente/cliente.jsp";
 	}
 	
