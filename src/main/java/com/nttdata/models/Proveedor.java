@@ -22,6 +22,14 @@ public class Proveedor {
 	private Long id;
 	
 	private String name;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	private String last_name;
 	private String email;
 	private String age;
@@ -38,6 +46,14 @@ public class Proveedor {
 	// Constructors
 	public Proveedor() {
 		super();
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 	public Proveedor(String name, String last_name, String email, String age) {

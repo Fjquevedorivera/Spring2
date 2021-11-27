@@ -1,5 +1,8 @@
 package com.nttdata.controllers;
 
+
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import com.nttdata.services.UsuarioService;
 @Controller
 @RequestMapping("/proyecto")
 public class ProyectoController {
-	
+
 	@Autowired
 	ProyectoService proyectoService;
 	
@@ -25,10 +28,25 @@ public class ProyectoController {
 	UsuarioService usuarioService;
 	
 	@RequestMapping("")
-	public String proyecto(@ModelAttribute("proyecto") Proyecto proyecto,
-			Model model) {
+	public String proyecto(Model model) {
+		model.addAttribute("proyecto", new Proyecto());
 		model.addAttribute("listaProyectos", proyectoService.obtenerListaProyectos());
-		model.addAttribute("listaUsuarios", usuarioService.obtenerListaUsuarios());
+	  
+		// Para utilizar objeto 
+		List<Object[]> proyectoUsuarios = proyectoService.getProyectosYUsuarios();
+		List<Proyecto> proyectoJUsuarios = proyectoService.getProyectosJUsuarios();
+	  
+		// Para usar objeto con getter y setter 
+		for(Object[] fila: proyectoUsuarios) { 
+			System.out.println(fila); 
+			Proyecto proyecto = (Proyecto) fila[0];
+			System.out.println("proyecto "+proyecto); 
+			Usuario usuario = (Usuario) fila[1];
+			System.out.println("usuario "+usuario); 
+		}
+		
+		model.addAttribute("proyectoUsuarios", proyectoUsuarios);
+		
 		return "proyecto/proyecto.jsp";
 	}
 	

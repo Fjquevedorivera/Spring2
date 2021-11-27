@@ -46,6 +46,14 @@ public class Cliente {
 	)
 	private List<Proveedor> proveedor;
 	
+	public List<Proveedor> getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(List<Proveedor> proveedor) {
+		this.proveedor = proveedor;
+	}
+
 	//Constructors: permiten instanciar la clase, 
 	//asignado un espacio de memoria y su información. 
 	public Cliente() {

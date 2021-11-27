@@ -38,4 +38,14 @@ public class ProyectoService {
 		proyectoRepository.delete(proyecto);
 	}
 	
+	
+	public List<Proyecto> getProyectosJUsuarios() { 
+	  	return proyectoRepository.getProyectosJUsuarios(); 
+  	}
+	 
+	public List<Object[]> getProyectosYUsuarios() { 
+		return proyectoRepository.getProyectosYUsuarios(); 
+	}
+	 
+
 }

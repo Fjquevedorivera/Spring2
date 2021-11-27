@@ -34,6 +34,12 @@ public class UsuarioController {
 		//Usuario usuario1= new Usuario();
 		//List<Usuario> listaUsuarios = usuarioService.obtenerListaUsuarios();
 		//model.addAttribute("usuario", new Usuario());
+		usuarioService.getUsuariosNombres();
+		List<Object[]> oUsuario = usuarioService.getUsuariosNombresApellidos();
+		oUsuario.get(0);//oUsuario.get(0)[0];
+		usuarioService.getUsuariosNombresApellidosSQL();
+		List<Usuario> lUsuario = usuarioService.getUsuarioById(20L);
+		
 		model.addAttribute("listaProyectos", proyectoService.obtenerListaProyectos());
 		model.addAttribute("listaUsuarios", usuarioService.obtenerListaUsuarios());
 		return "usuario/usuario.jsp";

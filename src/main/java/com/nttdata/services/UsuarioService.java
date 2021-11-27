@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nttdata.models.Cliente;
 import com.nttdata.models.Usuario;
 import com.nttdata.repositories.UsuarioRepository;
 
@@ -24,7 +25,8 @@ public class UsuarioService {
 	}
 	
 	public List<Usuario> obtenerListaUsuarios() {
-		return usuarioRepository.findAll();
+		//return usuarioRepository.findAll();
+		return usuarioRepository.findAllUsuarios();
 	}
 	
 	public Usuario buscarUsuarioId(Long id) {
@@ -37,5 +39,21 @@ public class UsuarioService {
 
 	public void eliminarUsuarioObj(Usuario usuario) {
 		usuarioRepository.delete(usuario);
+	}
+	
+	public List<String> getUsuariosNombres() {
+		return usuarioRepository.findAllUsuariosNombres();
+	}
+	
+	public List<Object[]> getUsuariosNombresApellidos() {
+		return usuarioRepository.findAllUsuariosNombresApellidos();
+	}
+	
+	public List<Object[]> getUsuariosNombresApellidosSQL() {
+		return usuarioRepository.findAllUsuariosNombresApellidosSQL();
+	}
+	
+	public List<Usuario> getUsuarioById(Long id) {
+		return usuarioRepository.getUsuarioById(id);
 	}
 }

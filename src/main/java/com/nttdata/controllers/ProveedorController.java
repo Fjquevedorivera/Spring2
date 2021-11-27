@@ -1,15 +1,23 @@
 package com.nttdata.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.nttdata.models.Proyecto;
+import com.nttdata.models.Usuario;
+import com.nttdata.services.ProyectoService;
 
 @Controller
 @RequestMapping("/proveedor")
 public class ProveedorController {
 	
 	@RequestMapping("")
-	public String index() {
+	public String index(Model model) {
 		return "proveedor/proveedor.jsp";
 	}
 	

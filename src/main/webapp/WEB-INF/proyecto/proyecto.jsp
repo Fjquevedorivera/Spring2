@@ -38,7 +38,7 @@
 		    	<tr>
 		      	<th scope="col">#</th>
 		      	<th scope="col">Nombre</th>
-		      	<th scope="col">Descripcion</th>
+		      	<th scope="col">Descripción</th>
 		      	<th scope="col">Fecha Inicio</th>
 		      	<th scope="col">Fecha Modificación</th>
 		      	<th scope="col">Acciones</th>
@@ -62,6 +62,24 @@
 							<input class="btn btn-primary btn-sm" type="submit" value="Editar">
 						</form>
 				  		</td>
+		    		</tr>
+		  		</c:forEach>
+		  	</tbody>
+		  	
+		</table>
+
+		<table class="table">
+			<thead>
+		    	<tr>
+			      	<th scope="col">Proyecto</th>
+			      	<th scope="col">Usuario</th>
+		    	</tr>
+		  	</thead>
+		  	<tbody>
+		  		<c:forEach items="${proyectoUsuarios}" var="fila">
+		    		<tr>
+			      		<th scope="row">${fila[0].name}</th>
+			      		<td>${fila[1].name}</td>
 		    		</tr>
 		  		</c:forEach>
 		  	</tbody>
