@@ -45,19 +45,43 @@ public class UsuarioController {
 		return "usuario/usuario.jsp";
 	}
 	
-	// Capturar info formulario
-	@RequestMapping("/login")
-	/* public String login(@RequestParam("name") String name,
-			@RequestParam("last_name") String last_name,
-			@RequestParam("limit") String limit,
-			@RequestParam("cp") String cp
-			) { */
-	public String login(@Valid @ModelAttribute("usuario") Usuario usuario) {
-		//System.out.println(name+" "+last_name+" "+limit+" "+cp);
-		//System.out.println(usuario.getName()+" "+usuario.getLast_name()+" "+usuario.getLimite()+" "+usuario.getCp());
-		usuarioService.insertarUsuario(usuario);
-		return "redirect:/usuario";
+	@RequestMapping("registrarjsp")
+	public String usuario(@ModelAttribute("usuario") Usuario usuario) {
+		return "usuario/registro.jsp";
 	}
+	
+	@RequestMapping("/registrar")
+	public String registro(@Valid @ModelAttribute("usuario") Usuario usuario) {
+		Usuario usuario_existe = usuarioService.findByEmail(usuario.getEmail());
+		//encript password
+		if(usuario_existe == null) {
+			usuarioService.registroUsuario(usuario);
+		}
+//		usuarioService.registroUsuario(usuario);
+		return "usuario/login.jsp";
+	}
+	
+	@RequestMapping("/ingresar")
+	public String login(@ModelAttribute("usuario") Usuario usuario) {
+		return "usuario/login.jsp";
+	}
+	
+	@RequestMapping("/login")
+	public String ingresar(@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			HttpSession session) {
+		boolean is_logged = usuarioService.loginUsuario(email, password);
+		if(is_logged) {
+			Usuario usuario = usuarioService.findByEmail(email);
+			session.setAttribute("usuario_id", usuario.getId());
+			session.setAttribute("nombre_usuario", usuario.getName());
+			return "redirect:/home";
+		} else {
+			return "redirect:/usuario/ingresar";
+		}
+		
+	}
+	
 	
 	@RequestMapping("/eliminar")
 	public String eliminarObj(@RequestParam("id") Long id) {

@@ -3,6 +3,7 @@ package com.nttdata.services;
 import javax.validation.Valid;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,18 @@ public class UsuarioService {
 	
 	@Autowired
 	UsuarioRepository usuarioRepository;
-
+	
+	public Usuario findByEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
+	
+	public Usuario registroUsuario(Usuario usuario) {
+		String hashed = BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt());
+		//set hashing password
+		usuario.setPassword(hashed);
+		return usuarioRepository.save(usuario);
+	}
+	
 	public void insertarUsuario(@Valid Usuario usuario) {
 		usuarioRepository.save(usuario);
 	}
@@ -55,5 +67,20 @@ public class UsuarioService {
 	
 	public List<Usuario> getUsuarioById(Long id) {
 		return usuarioRepository.getUsuarioById(id);
+	}
+	
+	public boolean loginUsuario(String email, String password) {
+		Usuario usuario = usuarioRepository.findByEmail(email);
+		if(usuario == null) {
+			return false;
+		} else {
+//			if(password.equals(usuario.getPassword())) {
+			if(BCrypt.checkpw(password, usuario.getPassword())) {
+				return true;
+			} else {
+				return false;
+			}
+		} 
+
 	}
 }

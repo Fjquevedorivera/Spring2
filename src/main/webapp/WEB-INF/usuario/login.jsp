@@ -12,7 +12,26 @@
 <body>
 
 	<div class="container">
-		<h1>Home</h1>
+		<form class="" method="POST" action="/usuario/login" modelAttribute="usuario">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="email">Email:</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" name="email"/> 
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label" for="password">Contraseña:</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" name="password"/>
+				</div>
+			</div>
+	
+			<div class="d-flex justify-content-center pt-4">
+				<input class="btn btn-danger m-2" type="reset" value="Limpiar">
+				<input class="btn btn-primary m-2" type="submit" value="Ingresar"> 
+			</div>
+		</form>
 		
 	</div>
 	

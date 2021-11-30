@@ -1,5 +1,7 @@
 package com.nttdata.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,9 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity //representación de la entidad
 @Table(name="usuarios") // nombre de la tabla en la BD
@@ -24,6 +29,28 @@ public class Usuario {
 	private String limite;
 	private String cp;
 	
+	private String rut;
+	private String email;
+	private String password;
+	@Transient
+	private String passwordConfirmation;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+		name = "roles_usuarios", // Tabla intermedia
+		joinColumns = @JoinColumn(name="usuario_id"), // Nombre posicionado
+		inverseJoinColumns = @JoinColumn(name="rol_id") // Nombre refereciado
+	)
+	private List<Role> roles;
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	// Relación 1a1
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Celular celular;
@@ -52,13 +79,53 @@ public class Usuario {
 	public Usuario() {
 		super();
 	}
-	
-	public Usuario(String name, String last_name, String limite, String cp) {
+
+	public Usuario(String name, String last_name, String limite, String cp, String rut, String email, String password,
+			String passwordConfirmation, List<Role> roles, Celular celular, Proyecto proyecto) {
 		super();
 		this.name = name;
 		this.last_name = last_name;
 		this.limite = limite;
 		this.cp = cp;
+		this.rut = rut;
+		this.email = email;
+		this.password = password;
+		this.passwordConfirmation = passwordConfirmation;
+		this.roles = roles;
+		this.celular = celular;
+		this.proyecto = proyecto;
+	}
+
+	public String getRut() {
+		return rut;
+	}
+
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
 	}
 
 	public String getName() {

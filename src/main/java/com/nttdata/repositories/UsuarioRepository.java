@@ -33,4 +33,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
 	@Query(value = "SELECT * FROM usuarios WHERE rut = ?2 and id = ?1", nativeQuery = true)
 	List<Usuario> getUsuarioByIdSQL(Long id, String rut);
 
+	Usuario findByEmail(String email);
+
 }
