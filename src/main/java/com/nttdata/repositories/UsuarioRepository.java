@@ -13,6 +13,7 @@ import com.nttdata.models.Usuario;
 public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
 	
 	//List<Usuario> findAll();
+	Usuario findByName(String name);
 	
 	//Obtener todos los clientes 
 	@Query("SELECT u FROM Usuario u")//debe usar el nombre del objeto

@@ -13,7 +13,8 @@
 
 	<div class="container">
 		<h1>Home</h1>
-		
+		<hr>
+		<p>${nombre_usuario}</p>
 	</div>
 	
 </body>

@@ -2,6 +2,8 @@ package com.nttdata.controllers;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class UsuarioController {
 		List<Object[]> oUsuario = usuarioService.getUsuariosNombresApellidos();
 		oUsuario.get(0);//oUsuario.get(0)[0];
 		usuarioService.getUsuariosNombresApellidosSQL();
-		List<Usuario> lUsuario = usuarioService.getUsuarioById(20L);
+//		List<Usuario> lUsuario = usuarioService.getUsuarioById(20L);
 		
 		model.addAttribute("listaProyectos", proyectoService.obtenerListaProyectos());
 		model.addAttribute("listaUsuarios", usuarioService.obtenerListaUsuarios());
@@ -55,10 +57,12 @@ public class UsuarioController {
 		Usuario usuario_existe = usuarioService.findByEmail(usuario.getEmail());
 		//encript password
 		if(usuario_existe == null) {
-			usuarioService.registroUsuario(usuario);
+			usuarioService.persistirUsuarioRol(usuario);
+		} else {
+			System.out.println("Usuario existe");
 		}
 //		usuarioService.registroUsuario(usuario);
-		return "usuario/login.jsp";
+		return "redirect:/login";
 	}
 	
 	@RequestMapping("/ingresar")
@@ -66,20 +70,28 @@ public class UsuarioController {
 		return "usuario/login.jsp";
 	}
 	
+//	@RequestMapping("/login")
+//	public String ingresar(@RequestParam("email") String email,
+//			@RequestParam("password") String password,
+//			HttpSession session) {
+//		boolean is_logged = usuarioService.loginUsuario(email, password);
+//		if(is_logged) {
+//			Usuario usuario = usuarioService.findByEmail(email);
+//			session.setAttribute("usuario_id", usuario.getId());
+//			session.setAttribute("nombre_usuario", usuario.getName());
+//			return "redirect:/home";
+//		} else {
+//			return "redirect:/usuario/ingresar";
+//		}
+//		
+//	}
+	
 	@RequestMapping("/login")
-	public String ingresar(@RequestParam("email") String email,
-			@RequestParam("password") String password,
-			HttpSession session) {
-		boolean is_logged = usuarioService.loginUsuario(email, password);
-		if(is_logged) {
-			Usuario usuario = usuarioService.findByEmail(email);
-			session.setAttribute("usuario_id", usuario.getId());
-			session.setAttribute("nombre_usuario", usuario.getName());
-			return "redirect:/home";
-		} else {
-			return "redirect:/usuario/ingresar";
-		}
-		
+	public String login(Principal principal, Model model, HttpSession session) {
+		String email = principal.getName();
+		Usuario usuario = usuarioService.findByEmail(email);
+		model.addAttribute("nombre_usuario", usuario.getName());
+		return "home.jsp";
 	}
 	
 	

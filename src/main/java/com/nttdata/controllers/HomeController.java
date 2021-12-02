@@ -1,5 +1,7 @@
 package com.nttdata.controllers;
 
+import java.lang.annotation.Repeatable;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,10 @@ public class HomeController {
 	
 	@Autowired // permite inyección de dependencias
 	UsuarioService usuarioService;
-	
+
 	@RequestMapping("")
 	public String index() {
-		return "";
+		return "home.jsp";
 	}
 	
 	@RequestMapping("/login")
@@ -36,12 +38,7 @@ public class HomeController {
 	
 	@RequestMapping("/home")
 	public String home(HttpSession session, Model model) {
-		String nombre = (String) session.getAttribute("nombre_usuario");
-		Long usuario_id = (Long) session.getAttribute("usuario_id");
-		
-		model.addAttribute("nombre_usuario", nombre);
-		model.addAttribute("usuario_id", usuario_id);
-		return "usuario/home.jsp";
+		return "home.jsp";
 	}
 	
 	@RequestMapping("/show")

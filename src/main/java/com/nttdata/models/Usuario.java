@@ -35,7 +35,7 @@ public class Usuario {
 	@Transient
 	private String passwordConfirmation;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 		name = "roles_usuarios", // Tabla intermedia
 		joinColumns = @JoinColumn(name="usuario_id"), // Nombre posicionado

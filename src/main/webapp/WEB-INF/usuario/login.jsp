@@ -12,8 +12,8 @@
 <body>
 
 	<div class="container">
-		<form class="" method="POST" action="/usuario/login" modelAttribute="usuario">
-			<!-- creara un token asignado por el security password -->
+		<form class="" method="POST" action="usuario/login" modelAttribute="usuario">
+			<!-- creara un token asignado por security password -->
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="email">Email:</label>
